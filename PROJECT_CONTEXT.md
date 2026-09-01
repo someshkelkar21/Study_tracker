@@ -1,45 +1,133 @@
-# Study Tracker
+# Study Tracker — Project Context
 
-## Project Goal
+## Project
 
-I am building a study tracker as my first real software project.
+Study Tracker
 
-The goal is to create an application that helps me track my studying.
+## Goal
 
-## My Experience
+Build a useful study tracking web application while improving my
+web development skills.
 
-I am a beginner.
+This is a learning project, but I want to build something genuinely
+usable rather than just a tutorial project.
 
-I want to learn programming while building this project.
+## My Current Skill Level
 
-## Tools
-
+I know:
+- Basic HTML
+- Basic CSS
+- Basic JavaScript
+- Basic Git
+- Basic GitHub
 - VS Code
-- Git
-- GitHub
-- ChatGPT
-- Gemini CLI
+- GitHub Pages
 
-## Technology
+I am still learning:
+- JavaScript in depth
+- Application architecture
+- Data persistence
+- More advanced Git
+- Working with AI coding tools
+- [Add as I learn]
 
-Not decided yet.
+## Current Tech Stack
 
-## What I Have Built
+Frontend:
+- HTML
+- CSS
+- JavaScript
 
-Nothing yet.
+Backend:
+- None currently
 
-## What I Am Learning
+Database:
+- None currently
+
+Deployment:
+- GitHub Pages
+
+## Features
+
+### Completed
+
+- [ ] Nothing yet
+
+### In Progress
+
+- [ ] Project setup
+
+### Planned
+
+- [ ] Study subjects
+- [ ] Study sessions
+- [ ] Study time tracking
+- [ ] Dashboard
+- [ ] Progress tracking
+- [ ] Data persistence
+- [ ] More features as needed
+
+## Current Architecture
+
+Currently a simple frontend application.
+
+This section should be updated whenever the architecture changes.
+
+## Important Decisions
+
+Record important technical decisions here.
+
+Example:
+
+- Start with vanilla JavaScript instead of React.
+- Use GitHub Pages for initial deployment.
+
+## Current Problems
+
+None.
+
+## Things I'm Learning
 
 - 
 
-## Problems / Questions
+## Things I Don't Understand
 
 - 
+
+## Current Git Branch
+
+main
 
 ## Current Goal
 
-Set up the project and learn the basics.
+Decide the MVP features and begin implementation.
 
 ## Next Step
 
-Decide on the technology stack and create the first part of the application.
+Define the smallest useful version of the Study Tracker.
+
+## Instructions for AI
+
+I am not a complete beginner.
+
+I understand basic HTML, CSS, JavaScript, Git, GitHub,
+VS Code and GitHub Pages.
+
+Do not explain basic HTML/CSS unless I ask.
+
+I am using AI to learn and build, not simply to generate code.
+
+Explain important architectural and programming decisions.
+
+Prefer incremental changes.
+
+Don't rewrite working code unnecessarily.
+
+Before making significant changes, explain what you're proposing
+and why.
+
+If something about the current project is unclear, ask me rather
+than making assumptions.
+
+PROJECT_CONTEXT.md is the source of truth for the current project state.
+

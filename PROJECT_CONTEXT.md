@@ -1,133 +1,577 @@
-# Study Tracker — Project Context
-
+# Study Tracker - Project Context
 ## Project
 
-Study Tracker
+**Study Tracker**
 
-## Goal
+A personal web application for planning, tracking, and measuring study progress.
 
-Build a useful study tracking web application while improving my
-web development skills.
+This is both a useful personal tool and a learning project for improving my software development skills.
 
-This is a learning project, but I want to build something genuinely
-usable rather than just a tutorial project.
+Developer
 
-## My Current Skill Level
+I am a beginner/intermediate learner.
 
-I know:
-- Basic HTML
-- Basic CSS
-- Basic JavaScript
-- Basic Git
-- Basic GitHub
-- VS Code
-- GitHub Pages
+I already know
+Basic **HTML**
+Basic **CSS**
+Basic JavaScript
+### Basic Git
+Basic GitHub
+VS Code
+GitHub Pages
+I am learning
+JavaScript in greater depth
+Application architecture
+State management
+Data persistence
+Date/time handling
+Advanced Git workflows
+Software design
+Working effectively with AI coding tools
+### Product Vision
 
-I am still learning:
-- JavaScript in depth
-- Application architecture
-- Data persistence
-- More advanced Git
-- Working with AI coding tools
-- [Add as I learn]
+The Study Tracker should allow me to:
 
-## Current Tech Stack
+Manage my subjects.
+Add custom subjects in the future.
+Enter and organize my syllabus.
+Track syllabus completion item by item.
+Create a personal workplan.
+Create a daily routine.
+Track how much time I actually study.
+Use a clock.
+Use a countdown timer.
+Use a stopwatch.
+See what has been completed.
+See how much remains.
+See percentage progress.
+Estimate roughly how much time is required to finish remaining work.
+Eventually use my historical study data to make time estimates more accurate.
 
-Frontend:
-- HTML
-- CSS
-- JavaScript
+The application should remain useful, simple, and understandable rather than becoming unnecessarily complex.
 
-Backend:
-- None currently
+### Initial Subjects
 
-Database:
-- None currently
+The initial subjects are:
 
-Deployment:
-- GitHub Pages
+Maths
+Science
+**SST**
+English
+Sanskrit
+### Information Technology
 
-## Features
+These are default subjects, not permanent hard-coded subjects.
 
-### Completed
+The application must eventually allow users to:
 
-- [ ] Nothing yet
+Add subjects
+Rename subjects
+Remove subjects
+Technology
+Current stack
+**HTML**
+**CSS**
+JavaScript
+Browser local storage initially
+Git
+GitHub
+GitHub Pages
+AI tools
+ChatGPT — planning, learning, architecture, explanations, debugging, code review
+Gemini **CLI** — repository inspection and implementation assistance
+Frameworks
 
-### In Progress
+Do not introduce React, Vue, Angular, or another frontend framework unless there is a clear future reason to do so.
 
-- [ ] Project setup
+Start with vanilla **HTML**, **CSS**, and JavaScript.
 
-### Planned
+Backend
 
-- [ ] Study subjects
-- [ ] Study sessions
-- [ ] Study time tracking
-- [ ] Dashboard
-- [ ] Progress tracking
-- [ ] Data persistence
-- [ ] More features as needed
+None initially.
 
-## Current Architecture
+Database
 
-Currently a simple frontend application.
+None initially.
 
-This section should be updated whenever the architecture changes.
+Use browser-side persistence initially.
 
-## Important Decisions
+### Core Features
+## Subject Management
 
-Record important technical decisions here.
+Users should be able to manage subjects.
+
+Initial default subjects:
+
+Maths
+Science
+**SST**
+English
+Sanskrit
+### Information Technology
+
+Future functionality:
+
+Add subject
+Edit subject
+Delete subject
+Potentially customize subject color/icon
+## Syllabus Management
+
+Each subject should contain syllabus content.
+
+A syllabus may have a hierarchy such as:
+
+Subject → Chapter → Topic
 
 Example:
 
-- Start with vanilla JavaScript instead of React.
-- Use GitHub Pages for initial deployment.
+Maths
 
-## Current Problems
+Chapter 1
+Topic 1
+Topic 2
+Topic 3
+Chapter 2
+Topic 1
+Topic 2
 
-None.
+Syllabus items should be individually trackable.
 
-## Things I'm Learning
+Possible future states:
 
-- 
+Not started
+In progress
+Completed
 
-## Things I Don't Understand
+The first implementation may use a simpler completion model if that keeps the architecture understandable.
 
-- 
+## Progress Tracking
 
-## Current Git Branch
+The application should calculate:
 
-main
+Completed items
+Remaining items
+Total items
+Completion percentage
 
-## Current Goal
+Example:
 
-Decide the MVP features and begin implementation.
+Maths:
 
-## Next Step
+12 / 20 topics completed
 
-Define the smallest useful version of the Study Tracker.
+60% complete
 
-## Instructions for AI
+8 topics remaining
 
-I am not a complete beginner.
+The application should eventually provide both:
 
-I understand basic HTML, CSS, JavaScript, Git, GitHub,
-VS Code and GitHub Pages.
+Subject-level progress
+Overall syllabus progress
+## Workplan
 
-Do not explain basic HTML/CSS unless I ask.
+The user should be able to create study tasks/workplans.
 
-I am using AI to learn and build, not simply to generate code.
+Example:
 
-Explain important architectural and programming decisions.
+Maths — Chapter 4 Exercise 4.2
+Science — Revise Chapter 3
+English — Learn poem
+**SST** — Read Chapter 5
 
-Prefer incremental changes.
+Tasks may eventually contain:
 
-Don't rewrite working code unnecessarily.
+Subject
+Syllabus item
+Description
+Date
+Completion status
+Estimated time
+Actual time
+## Daily Routine
 
-Before making significant changes, explain what you're proposing
-and why.
+The user should be able to create a recurring or reusable daily routine.
 
-If something about the current project is unclear, ask me rather
-than making assumptions.
+Example:
+
+06:00 — Wake up
+06:30 — Study
+07:30 — Breakfast
+08:00 — School
+17:00 — Study
+19:00 — Dinner
+20:00 — Study
+22:30 — Sleep
+
+The routine is conceptually different from the workplan.
+
+Routine: When activities normally happen.
+
+Workplan: What needs to be accomplished.
+
+6. Clock
+
+Provide a basic live clock component.
+
+Potential information:
+
+Current time
+Date
+Day
+
+Keep the first implementation simple.
+
+## Countdown Timer
+
+Provide a timer that supports:
+
+Start
+Pause
+Resume
+Reset
+
+Example:
+
+45:00 → 44:59 → 44:58 ...
+
+## Stopwatch
+
+Provide a stopwatch that supports:
+
+Start
+Pause
+Resume
+Reset
+
+Example:
+
+00:00 → 00:01 → 00:02 ...
+
+## Study Time Tracking
+
+The application should record actual study time.
+
+Eventually the user should be able to see:
+
+Today
+
+Maths — 1h 20m
+Science — 45m
+English — 30m
+
+Total — 2h 35m
+
+Weekly
+
+Study time grouped by day and/or subject.
+
+Historical data should eventually support statistics and better time estimates.
+
+## Time Estimation
+
+The application should provide a rough estimate of how long remaining work may take.
+
+Initial version:
+
+Allow the user to provide estimated time for tasks/topics.
+
+Future version:
+
+Compare estimated time with actual study time.
+Calculate personal averages.
+Use historical data to improve future estimates.
+
+Example:
+
+Estimated:
+
+60 minutes
+
+Actual:
+
+75 minutes
+
+Over time the application may learn that the user's average actual time is approximately 1.25× their initial estimate.
+
+Future goal:
+
+18 topics remaining
+
+Estimated remaining time:
+
+~11 hours 20 minutes
+
+These estimates should always be treated as approximate.
+
+**MVP** Roadmap
+
+The project will be built incrementally.
+
+Version 0.1 — Syllabus Foundation
+
+Goal:
+
+Build the smallest useful version of the Study Tracker.
+
+Features:
+
+Subjects
+Syllabus structure
+Syllabus items
+Completion/checking
+Progress calculations
+Basic dashboard
+Version 0.2 — Workplan
+
+Features:
+
+Create study tasks
+Assign tasks to subjects
+Assign dates
+Mark tasks complete
+Estimated task duration
+Basic daily workplan
+Version 0.3 — Time Tools
+
+Features:
+
+Clock
+Countdown timer
+Stopwatch
+Version 0.4 — Study Time Tracking
+
+Features:
+
+Record study sessions
+Associate sessions with subjects
+Track daily study time
+Track weekly study time
+Basic statistics
+Version 0.5 — Daily Routine
+
+Features:
+
+Create routine items
+Assign times
+View daily routine
+Support recurring routine items
+Version 0.6 — Time Estimation
+
+Features:
+
+Estimate remaining study time
+Compare estimated vs actual time
+Use historical data for improved estimates
+### Future Ideas
+
+These are intentionally outside the current scope.
+
+Possible future features:
+
+Charts and graphs
+Advanced analytics
+Cloud synchronization
+User accounts
+Mobile application
+Notifications
+Calendar integration
+AI-generated study plans
+Advanced scheduling
+More sophisticated estimation
+Themes/customization
+
+Do not implement future ideas until the current roadmap stage is working.
+
+### Architecture Principles
+Keep it simple
+
+Prefer the simplest solution that works.
+
+Do not introduce unnecessary libraries, frameworks, APIs, or services.
+
+Understand before implementing
+
+AI-generated code should not be accepted blindly.
+
+Important code should be explained and understood before being kept.
+
+Incremental development
+
+Build small features, test them, commit them, then continue.
+
+Avoid large rewrites.
+
+Preserve working code
+
+Do not rewrite functioning code unnecessarily.
+
+Prefer small, targeted changes.
+
+Data-driven design
+
+Subjects and syllabus should eventually be represented as data rather than hard-coded UI.
+
+The application should be designed so new subjects and syllabus items can be added without changing the application logic.
+
+### Git Workflow
+
+Normal development cycle:
+
+Make a small change.
+Test it.
+Run git status.
+Review changes with git diff.
+Stage changes with git add.
+Commit with a meaningful message.
+Push to GitHub.
+
+Example:
+
+git status
+git diff
+git add .
+git commit -m *Add syllabus progress tracking*
+git push
+
+
+Git commits should represent meaningful checkpoints.
+
+AI Workflow
+ChatGPT
+
+Use ChatGPT primarily for:
+
+Learning concepts
+Planning
+Product decisions
+Architecture
+Explaining code
+Debugging
+Reviewing approaches
+Breaking large tasks into smaller tasks
+
+ChatGPT should act as a mentor and development partner.
+
+Gemini **CLI**
+
+Use Gemini **CLI** primarily for:
+
+Inspecting the repository
+Understanding existing code
+Finding relevant files
+Implementing agreed changes
+Refactoring when appropriate
+Running repository-related tasks
+
+Gemini should not be told to blindly build the entire application.
+
+Human control
+
+The developer remains responsible for:
+
+Understanding changes
+Reviewing AI-generated code
+Testing changes
+Deciding whether changes should be kept
+Committing changes to Git
+### Learning Notes
+
+Use **LEARNING**-**NOTES**.md to record concepts learned during development.
+
+Examples:
+
+JavaScript concepts
+Git commands
+Architecture decisions
+Bugs and their causes
+Useful patterns
+Mistakes and lessons
+
+The goal is not just to finish the application.
+
+The goal is to become a better developer while building it.
+
+### Current Project State
+Phase
+
+Initial planning / pre-v0.1 implementation.
+
+Completed
+Created GitHub repository
+Created local project
+### Initialized Git
+Created initial Git commit
+Connected local repository to GitHub
+Changed branch from master to main
+Merged the GitHub **README** into the local repository
+Pushed project to GitHub
+Set up Gemini **CLI**
+Set up Gemini **API**-key authentication
+Created project context documentation
+Current files
+**README**.md
+PROJECT_CONTEXT.md
+**LEARNING**-**NOTES**.md
+Current goal
+
+Begin designing and implementing Version 0.1.
+
+Next development task
+
+Design the data structure for:
+
+Subjects
+Chapters
+Topics
+Completion state
+Progress calculation
+
+Do not begin implementation until the data model has been discussed and understood.
+
+### Development Schedule
+
+Target development time:
+
+Approximately 30 minutes on weekdays
+Approximately 90 minutes on Saturday
+Approximately 90 minutes on Sunday
+Approximately 5.5 hours per week
+
+The project is expected to take several months.
+
+Progress is more important than speed.
+
+AI Instructions
+
+I am a beginner/intermediate developer learning by building.
+
+Do not explain basic **HTML**/**CSS** unless requested.
+
+Do not assume I understand advanced JavaScript or architecture.
+
+When introducing a new concept:
+
+Explain what it is.
+Explain why we need it.
+Show a small example when useful.
+Let me understand it before moving on.
+
+When proposing significant code changes:
+
+Explain the goal.
+Explain the approach.
+Identify which files will change.
+Make the smallest sensible change.
+Test the change.
+Explain what was learned.
+
+Do not rewrite working code unnecessarily.
+
+Do not introduce frameworks or dependencies without discussing why they are needed.
+
+Do not implement future features prematurely.
+
+If project requirements are unclear, ask before making assumptions.
 
 PROJECT_CONTEXT.md is the source of truth for the current project state.
-

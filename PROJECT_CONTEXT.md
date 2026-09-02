@@ -493,41 +493,26 @@ The goal is not just to finish the application.
 The goal is to become a better developer while building it.
 
 ### Current Project State
-Phase
+## Current Session
+We completed the initial architecture discussion for v0.1.
 
-Initial planning / pre-v0.1 implementation.
+### Decisions
+- Subject → Chapter → Topic hierarchy
+- Numeric IDs
+- Topic has a completed state
+- Progress is calculated, not stored
+- localStorage will be used for persistence
 
-Completed
-Created GitHub repository
-Created local project
-### Initialized Git
-Created initial Git commit
-Connected local repository to GitHub
-Changed branch from master to main
-Merged the GitHub **README** into the local repository
-Pushed project to GitHub
-Set up Gemini **CLI**
-Set up Gemini **API**-key authentication
-Created project context documentation
-Current files
-**README**.md
-PROJECT_CONTEXT.md
-**LEARNING**-**NOTES**.md
-Current goal
+### Next Task
+Begin implementing the JavaScript data structure for v0.1.
 
-Begin designing and implementing Version 0.1.
+### Development Approach
+The developer is learning through this project.
+Act as a teacher/mentor.
+Do not blindly generate code.
+Explain concepts and guide implementation.
+Correct misunderstandings rather than encouraging them.
 
-Next development task
-
-Design the data structure for:
-
-Subjects
-Chapters
-Topics
-Completion state
-Progress calculation
-
-Do not begin implementation until the data model has been discussed and understood.
 
 ### Development Schedule
 

@@ -160,9 +160,11 @@ completedCount++;
 let progress = (completedCount/totalTopics)*100;
 return progress;
 }
-let mathsProgress = getProgress(subjects[0]);
-console.log(mathsProgress);
-let scienceProgress = getProgress(subjects[1]);
-console.log(scienceProgress);
-let sstProgress = getProgress(subjects[2]);
-console.log(sstProgress);
+for (let k = 0; k<subjects.length; k++) {
+console.log(subjects[k].name, getProgress(subjects[k]))
+}
+let container = document.getElementById("subjects");
+
+for (let k = 0; k < subjects.length; k++) {
+    container.innerHTML += subjects[k].name + "<br>";
+}

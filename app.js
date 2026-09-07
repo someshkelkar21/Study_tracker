@@ -146,25 +146,58 @@ let subjects = [
     },
 ]
 function getProgress(subject) {
-    let completedCount = 0
+    let completedTopics = 0
 let totalTopics =0
-
+let completedChapters =0
 for (let i = 0; i<subject.chapters.length; i++) {
+    let chapterCompleted = true;
 for (let j = 0; j <subject.chapters[i].topics.length; j++ ) {
+    if (subject.chapters[i].topics[j].completed === false){
+        chapterCompleted = false;
+    }
 totalTopics++;
 if (subject.chapters[i].topics[j].completed) {
-completedCount++;
+completedTopics++;
 }
 }
+if (chapterCompleted){
+    completedChapters++;
 }
-let progress = (completedCount/totalTopics)*100;
-return progress;
 }
-for (let k = 0; k<subjects.length; k++) {
-console.log(subjects[k].name, getProgress(subjects[k]))
+let progress = (completedTopics/totalTopics)*100;
+let subjectCompletionData = {
+    totalTopics,
+    completedTopics,
+    completedChapters,
+    progress
+}
+return subjectCompletionData;
 }
 let container = document.getElementById("subjects");
 
 for (let k = 0; k < subjects.length; k++) {
-    container.innerHTML += subjects[k].name + "<br>";
-}
+    let subjectCompletionData = getProgress(subjects[k]);
+    let subjectContainer = document.createElement("div");
+    let subjectNameElement = document.createElement("h2");
+    subjectNameElement.textContent = subjects[k].name;
+    let totalTopicsElement = document.createElement("p");
+    totalTopicsElement.textContent = "Total Topics: " +subjectCompletionData.totalTopics;
+    let completedTopicsElement = document.createElement("p");
+    completedTopicsElement.textContent = "Completed Topics: " +subjectCompletionData.completedTopics;
+    let completedChaptersElement = document.createElement("p");
+    completedChaptersElement.textContent = "Completed Chapters: " +subjectCompletionData.completedChapters;
+    let progressElement = document.createElement("p");
+    if (subjectCompletionData.progress%1 === 0){
+        progressElement.textContent = "Progress: " +subjectCompletionData.progress+"%";
+    }
+    else {
+        progressElement.textContent = "Progress: " +subjectCompletionData.progress.toFixed(2)+"%";}
+      subjectContainer.append(
+    subjectNameElement,
+    totalTopicsElement,
+    completedTopicsElement,
+    completedChaptersElement,
+    progressElement
+);
+container.append(subjectContainer);
+}   

@@ -245,7 +245,8 @@ for (let k = 0; k < subjects.length; k++) {
     }
     else {
         progressElement.textContent = "Progress: " +subjectCompletionData.progress.toFixed(2)+"%";}
-      subjectContainer.append(
+     progressElement.className = "progress";
+        subjectContainer.append(
     subjectNameElement,
     completedTopicsElement,
     totalTopicsElement,

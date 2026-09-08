@@ -1,19 +1,40 @@
-    
+#subjects {
+    display: flex;
+    gap: 40px 25px;
+    padding: 15px;
+    flex-wrap: wrap;
+    justify-content: center; 
+}
 .subject-card {
-    border: 1px solid black;
+    border: 1px solid grey;
     border-radius: 8px;
     padding: 10px;
-    margin: 10px;
     background-color: #8fe3ff;
-    box-shadow: 5px 5px 10px gray;
+    box-shadow: 5px 5px 10px rgb(68, 67, 67);
     width: 270px;
+    box-sizing: border-box;
+    flex-basis: auto;
+    flex-shrink: 0;
+    overflow: auto;
+    line-height: 1;
+    transition: transform 0.2s;
+    transition: box-shadow 0.2s;
+}
+.subject-card:hover {
+    transform: scale(1.05);
+    box-shadow: 10px 10px 10px black;
 }
 .subject-card h2 {
     font-size: 30px;
     font-weight: 700;
     color: darkblue;
     text-align: center;
+    margin-top: 10px;
 }
-#subjects {
-    display: flex;
+.progress {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }

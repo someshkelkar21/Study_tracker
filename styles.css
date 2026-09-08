@@ -1,0 +1,19 @@
+    
+.subject-card {
+    border: 1px solid black;
+    border-radius: 8px;
+    padding: 10px;
+    margin: 10px;
+    background-color: #8fe3ff;
+    box-shadow: 5px 5px 10px gray;
+    width: 270px;
+}
+.subject-card h2 {
+    font-size: 30px;
+    font-weight: 700;
+    color: darkblue;
+    text-align: center;
+}
+#subjects {
+    display: flex;
+}

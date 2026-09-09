@@ -223,12 +223,34 @@ let subjectCompletionData = {
 }
 return subjectCompletionData;
 }
-let container = document.getElementById("subjects");
+let subjectInput = document.getElementById("subjectName");
+let addSubButton = document.getElementById("addSubButton");
+addSubButton.className = "addSubButton";
+addSubButton.addEventListener("click", function () {
+    let name = subjectInput.value;
+    if (name.trim() === "") {
+        return
+    };
+    let newsubject = {
+    id: subjects.length + 1,
+    name: name,
+    chapters: []
+};
 
+subjects.push(newsubject);
+dashboardSubjects.innerHTML = "";
+sidebarSubjects.innerHTML = "";
+renderSubjects();
+subjectInput.value = "";
+}
+);
+let container = document.getElementById("dashboardSubjects");
+
+function renderSubjects() {
 for (let k = 0; k < subjects.length; k++) {
     let subjectCompletionData = getProgress(subjects[k]);
-    let subjectContainer = document.createElement("div");
-    subjectContainer.className = "subject-card";
+    let dashboardSubjectContainer = document.createElement("div");
+    dashboardSubjectContainer.className = "subject-card";
     let subjectNameElement = document.createElement("h2");
     subjectNameElement.textContent = subjects[k].name;
     let completedTopicsElement = document.createElement("p");
@@ -246,7 +268,7 @@ for (let k = 0; k < subjects.length; k++) {
     else {
         progressElement.textContent = "Progress: " +subjectCompletionData.progress.toFixed(2)+"%";}
      progressElement.className = "progress";
-        subjectContainer.append(
+        dashboardSubjectContainer.append(
     subjectNameElement,
     completedTopicsElement,
     totalTopicsElement,
@@ -254,5 +276,31 @@ for (let k = 0; k < subjects.length; k++) {
     totalChaptersElement,
     progressElement
 );
-container.append(subjectContainer);
+dashboardSubjects.append(dashboardSubjectContainer);
 }   
+for (let l =0; l < subjects.length; l++) {
+    let sidebarSubjectContainer = document.createElement("div");
+    let sidebarChapterContainer = document.createElement("div");
+    sidebarSubjectContainer.className = "sidebarSubject";
+    sidebarSubjectContainer.textContent = subjects[l].name;
+    sidebarSubjectContainer.addEventListener("click", function () {
+        if (sidebarChapterContainer.innerHTML === ""){
+        for (let m =0; m < subjects[l].chapters.length; m++) {
+           let sidebarChapterElement = document.createElement("div");
+            sidebarChapterElement.textContent = subjects[l].chapters[m].name;
+            sidebarChapterContainer.append(
+                sidebarChapterElement,
+            );
+            sidebarSubjectContainer.append(
+                sidebarChapterContainer,
+            );
+        }
+        }
+        else {sidebarChapterContainer.innerHTML = ""};
+});
+    sidebarSubjects.append(sidebarSubjectContainer,
+    );
+}
+};
+
+renderSubjects();   

@@ -1,4 +1,21 @@
-#subjects {
+.app {
+    display: grid;
+    grid-template-columns: 30% 70%;
+    height: 100vh;
+}
+.sidebar {
+    border: 3px solid black;
+    padding: 1%;
+    background-color: floralwhite;
+    overflow: auto;
+}
+.dashboard {
+    border: 3px solid black;
+    padding: 1%;
+    background-color: azure;
+    overflow: auto;
+}
+#dashboardSubjects {
     display: flex;
     gap: 40px 25px;
     padding: 15px;
@@ -6,7 +23,7 @@
     justify-content: center; 
 }
 .subject-card {
-    border: 1px solid grey;
+    border: 2px solid rgb(75, 75, 75);
     border-radius: 8px;
     padding: 10px;
     background-color: #8fe3ff;
@@ -15,7 +32,6 @@
     box-sizing: border-box;
     flex-basis: auto;
     flex-shrink: 0;
-    overflow: auto;
     line-height: 1;
     transition: transform 0.2s;
     transition: box-shadow 0.2s;
@@ -34,7 +50,14 @@
 .progress {
     font-size: 20px;
     font-weight: bold;
+      width: 70%;
     text-align: center;
     margin-top: 5px;
     margin-bottom: 5px;
+}
+.sidebarSubject {
+    cursor: pointer;
+}
+.addSubButton {
+    cursor: pointer;
 }

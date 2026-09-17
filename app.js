@@ -287,20 +287,37 @@ for (let l =0; l < subjects.length; l++) {
         if (sidebarChapterContainer.innerHTML === ""){
         for (let m =0; m < subjects[l].chapters.length; m++) {
            let sidebarChapterElement = document.createElement("div");
+           let sidebarTopicContainer = document.createElement("div");
             sidebarChapterElement.textContent = subjects[l].chapters[m].name;
+            sidebarChapterElement.addEventListener("click", function (event){
+                event.stopPropagation();
+                if (sidebarTopicContainer.innerHTML === ""){
+                for (let n = 0; n < subjects[l].chapters[m].topics.length; n++) {
+                    let sidebarTopicElement = document.createElement("div");
+                    sidebarTopicElement.textContent = subjects[l].chapters[m].topics[n].name;
+                    
+                sidebarTopicContainer.append(
+                    sidebarTopicElement,
+                );
+                }
+             }
+             else {sidebarTopicContainer.innerHTML = ""};
+                sidebarChapterElement.append(sidebarTopicContainer);
+            });
             sidebarChapterContainer.append(
                 sidebarChapterElement,
-            );
-            sidebarSubjectContainer.append(
-                sidebarChapterContainer,
             );
         }
         }
         else {sidebarChapterContainer.innerHTML = ""};
 });
-    sidebarSubjects.append(sidebarSubjectContainer,
-    );
+sidebarSubjectContainer.append( sidebarChapterContainer,
+ );
+sidebarSubjects.append(sidebarSubjectContainer,
+);
 }
 };
 
 renderSubjects();   
+
+

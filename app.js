@@ -246,7 +246,8 @@ subjectInput.value = "";
 );
 let container = document.getElementById("dashboardSubjects");
 
-function renderSubjects() {
+function renderDashboard() {
+dashboardSubjects.innerHTML = "";
 for (let k = 0; k < subjects.length; k++) {
     let subjectCompletionData = getProgress(subjects[k]);
     let dashboardSubjectContainer = document.createElement("div");
@@ -278,6 +279,8 @@ for (let k = 0; k < subjects.length; k++) {
 );
 dashboardSubjects.append(dashboardSubjectContainer);
 }   
+};
+function renderSidebar(){
 for (let l =0; l < subjects.length; l++) {
     let sidebarSubjectContainer = document.createElement("div");
     let sidebarChapterContainer = document.createElement("div");
@@ -294,7 +297,22 @@ for (let l =0; l < subjects.length; l++) {
                 if (sidebarTopicContainer.innerHTML === ""){
                 for (let n = 0; n < subjects[l].chapters[m].topics.length; n++) {
                     let sidebarTopicElement = document.createElement("div");
-                    sidebarTopicElement.textContent = subjects[l].chapters[m].topics[n].name;
+                    let sidebarTopicCheckbox = document.createElement("input");
+                    sidebarTopicCheckbox.type = "checkbox";
+                     sidebarTopicCheckbox.addEventListener("click", function (event) {
+                         event.stopPropagation();
+                         subjects[l].chapters[m].topics[n].completed =
+                         sidebarTopicCheckbox.checked;
+                         renderDashboard();
+                        });
+                    sidebarTopicCheckbox.checked = subjects[l].chapters[m].topics[n].completed;
+                    let sidebarTopicName = document.createElement("span");
+                    sidebarTopicName.textContent = subjects[l].chapters[m].topics[n].name;
+
+                    sidebarTopicElement.append(
+                        sidebarTopicCheckbox,
+                        sidebarTopicName
+                    );
                     
                 sidebarTopicContainer.append(
                     sidebarTopicElement,
@@ -318,6 +336,6 @@ sidebarSubjects.append(sidebarSubjectContainer,
 }
 };
 
-renderSubjects();   
-
+renderDashboard();   
+renderSidebar();
 

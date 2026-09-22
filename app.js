@@ -225,6 +225,27 @@ return subjectCompletionData;
 }
 let subjectInput = document.getElementById("subjectName");
 let addSubButton = document.getElementById("addSubButton");
+let chapterNameInput = document.getElementById("chapterName");
+let addChapterButton = document.getElementById("addChapterButton");
+let chapterDialog = document.getElementById("chapterDialog");
+let selectedSubjectIndex;
+addChapterButton.addEventListener("click", function () {
+    let name = chapterNameInput.value;
+     if (name.trim() === "") {
+        return;
+    }
+     let newChapter = {
+        id: subjects[selectedSubjectIndex].chapters.length + 1,
+        name: name,
+        topics: []
+    };
+    subjects[selectedSubjectIndex].chapters.push(newChapter);
+    chapterNameInput.value = "";
+    renderDashboard();
+    renderSidebar();
+
+    chapterDialog.close();
+});
 addSubButton.className = "addSubButton";
 addSubButton.addEventListener("click", function () {
     let name = subjectInput.value;
@@ -240,7 +261,8 @@ addSubButton.addEventListener("click", function () {
 subjects.push(newsubject);
 dashboardSubjects.innerHTML = "";
 sidebarSubjects.innerHTML = "";
-renderSubjects();
+renderDashboard();
+renderSidebar();
 subjectInput.value = "";
 }
 );
@@ -280,34 +302,27 @@ for (let k = 0; k < subjects.length; k++) {
 dashboardSubjects.append(dashboardSubjectContainer);
 }   
 };
-function renderSidebar(){
-for (let l =0; l < subjects.length; l++) {
-    let sidebarSubjectContainer = document.createElement("div");
-    let sidebarChapterContainer = document.createElement("div");
-    sidebarSubjectContainer.className = "sidebarSubject";
-    sidebarSubjectContainer.textContent = subjects[l].name;
-    sidebarSubjectContainer.addEventListener("click", function () {
-        if (sidebarChapterContainer.innerHTML === ""){
-        for (let m =0; m < subjects[l].chapters.length; m++) {
+function renderChapters(subject, sidebarChapterContainer) {
+    for (let m =0; m < subject.chapters.length; m++) {
            let sidebarChapterElement = document.createElement("div");
            let sidebarTopicContainer = document.createElement("div");
-            sidebarChapterElement.textContent = subjects[l].chapters[m].name;
+            sidebarChapterElement.textContent = subject.chapters[m].name;
             sidebarChapterElement.addEventListener("click", function (event){
                 event.stopPropagation();
                 if (sidebarTopicContainer.innerHTML === ""){
-                for (let n = 0; n < subjects[l].chapters[m].topics.length; n++) {
+                for (let n = 0; n < subject.chapters[m].topics.length; n++) {
                     let sidebarTopicElement = document.createElement("div");
                     let sidebarTopicCheckbox = document.createElement("input");
                     sidebarTopicCheckbox.type = "checkbox";
                      sidebarTopicCheckbox.addEventListener("click", function (event) {
                          event.stopPropagation();
-                         subjects[l].chapters[m].topics[n].completed =
+                         subject.chapters[m].topics[n].completed =
                          sidebarTopicCheckbox.checked;
                          renderDashboard();
                         });
-                    sidebarTopicCheckbox.checked = subjects[l].chapters[m].topics[n].completed;
+                    sidebarTopicCheckbox.checked = subject.chapters[m].topics[n].completed;
                     let sidebarTopicName = document.createElement("span");
-                    sidebarTopicName.textContent = subjects[l].chapters[m].topics[n].name;
+                    sidebarTopicName.textContent = subject.chapters[m].topics[n].name;
 
                     sidebarTopicElement.append(
                         sidebarTopicCheckbox,
@@ -326,8 +341,32 @@ for (let l =0; l < subjects.length; l++) {
                 sidebarChapterElement,
             );
         }
-        }
+
+        let addChapButton = document.createElement("button");
+        addChapButton.textContent = "Add Chapter";
+        addChapButton.addEventListener("click", function (event) {
+            event.stopPropagation();
+            selectedSubjectIndex = subjects.indexOf(subject);
+            chapterDialog.showModal();
+        });
+        sidebarChapterContainer.append(addChapButton);
+    };
+
+function renderSidebar(){
+    sidebarSubjects.innerHTML = "";
+for (let l =0; l < subjects.length; l++) {
+    let sidebarSubjectContainer = document.createElement("div");
+    let sidebarChapterContainer = document.createElement("div");
+    sidebarSubjectContainer.className = "sidebarSubject";
+    sidebarSubjectContainer.textContent = subjects[l].name;
+    if (l === selectedSubjectIndex) {
+        renderChapters(subjects[l], sidebarChapterContainer);
+    }
+    sidebarSubjectContainer.addEventListener("click", function () {
+        if (sidebarChapterContainer.innerHTML === ""){
+            renderChapters(subjects[l], sidebarChapterContainer);}
         else {sidebarChapterContainer.innerHTML = ""};
+
 });
 sidebarSubjectContainer.append( sidebarChapterContainer,
  );

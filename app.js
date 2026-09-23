@@ -228,24 +228,11 @@ let addSubButton = document.getElementById("addSubButton");
 let chapterNameInput = document.getElementById("chapterName");
 let addChapterButton = document.getElementById("addChapterButton");
 let chapterDialog = document.getElementById("chapterDialog");
+let topicNameInput = document.getElementById("topicName");
+let addTopicDialogButton = document.getElementById("addTopicButton");
+let topicDialog = document.getElementById("topicDialog");
 let selectedSubjectIndex;
-addChapterButton.addEventListener("click", function () {
-    let name = chapterNameInput.value;
-     if (name.trim() === "") {
-        return;
-    }
-     let newChapter = {
-        id: subjects[selectedSubjectIndex].chapters.length + 1,
-        name: name,
-        topics: []
-    };
-    subjects[selectedSubjectIndex].chapters.push(newChapter);
-    chapterNameInput.value = "";
-    renderDashboard();
-    renderSidebar();
-
-    chapterDialog.close();
-});
+let selectedChapterIndex;
 addSubButton.className = "addSubButton";
 addSubButton.addEventListener("click", function () {
     let name = subjectInput.value;
@@ -266,6 +253,43 @@ renderSidebar();
 subjectInput.value = "";
 }
 );
+
+addChapterButton.addEventListener("click", function () {
+    let name = chapterNameInput.value;
+     if (name.trim() === "") {
+        return;
+    }
+     let newChapter = {
+        id: subjects[selectedSubjectIndex].chapters.length + 1,
+        name: name,
+        topics: []
+    };
+    subjects[selectedSubjectIndex].chapters.push(newChapter);
+    chapterNameInput.value = "";
+    renderDashboard();
+    renderSidebar();
+
+    chapterDialog.close();
+});
+addTopicDialogButton.addEventListener("click", function () {
+    let name = topicNameInput.value;
+
+    if (name.trim() === "") {
+        return;
+    }
+    let newTopic = {
+    id: subjects[selectedSubjectIndex].chapters[selectedChapterIndex].topics.length + 1,
+    name: name,
+    completed: false
+};
+subjects[selectedSubjectIndex]
+    .chapters[selectedChapterIndex]
+    .topics.push(newTopic);
+renderDashboard();
+renderSidebar();
+topicDialog.close();
+topicNameInput.value = "";
+});
 let container = document.getElementById("dashboardSubjects");
 
 function renderDashboard() {
@@ -302,55 +326,104 @@ for (let k = 0; k < subjects.length; k++) {
 dashboardSubjects.append(dashboardSubjectContainer);
 }   
 };
-function renderChapters(subject, sidebarChapterContainer) {
-    for (let m =0; m < subject.chapters.length; m++) {
-           let sidebarChapterElement = document.createElement("div");
-           let sidebarTopicContainer = document.createElement("div");
-            sidebarChapterElement.textContent = subject.chapters[m].name;
-            sidebarChapterElement.addEventListener("click", function (event){
-                event.stopPropagation();
-                if (sidebarTopicContainer.innerHTML === ""){
-                for (let n = 0; n < subject.chapters[m].topics.length; n++) {
-                    let sidebarTopicElement = document.createElement("div");
-                    let sidebarTopicCheckbox = document.createElement("input");
-                    sidebarTopicCheckbox.type = "checkbox";
-                     sidebarTopicCheckbox.addEventListener("click", function (event) {
-                         event.stopPropagation();
-                         subject.chapters[m].topics[n].completed =
-                         sidebarTopicCheckbox.checked;
-                         renderDashboard();
-                        });
-                    sidebarTopicCheckbox.checked = subject.chapters[m].topics[n].completed;
-                    let sidebarTopicName = document.createElement("span");
-                    sidebarTopicName.textContent = subject.chapters[m].topics[n].name;
+function renderTopics(subject, chapterIndex, sidebarTopicContainer) {
+    sidebarTopicContainer.innerHTML = "";
 
-                    sidebarTopicElement.append(
-                        sidebarTopicCheckbox,
-                        sidebarTopicName
-                    );
-                    
-                sidebarTopicContainer.append(
-                    sidebarTopicElement,
-                );
-                }
-             }
-             else {sidebarTopicContainer.innerHTML = ""};
-                sidebarChapterElement.append(sidebarTopicContainer);
-            });
-            sidebarChapterContainer.append(
-                sidebarChapterElement,
-            );
+    for (let n = 0; n < subject.chapters[chapterIndex].topics.length; n++) {
+        let sidebarTopicElement = document.createElement("div");
+
+        let sidebarTopicCheckbox = document.createElement("input");
+        sidebarTopicCheckbox.type = "checkbox";
+
+        sidebarTopicCheckbox.addEventListener("click", function (event) {
+            event.stopPropagation();
+
+            subject.chapters[chapterIndex].topics[n].completed =
+                sidebarTopicCheckbox.checked;
+
+            renderDashboard();
+        });
+
+        sidebarTopicCheckbox.checked =
+            subject.chapters[chapterIndex].topics[n].completed;
+
+        let sidebarTopicName = document.createElement("span");
+        sidebarTopicName.textContent =
+            subject.chapters[chapterIndex].topics[n].name;
+
+        sidebarTopicElement.append(
+            sidebarTopicCheckbox,
+            sidebarTopicName
+        );
+
+        sidebarTopicContainer.append(sidebarTopicElement);
+    }
+
+    let addTopicButton = document.createElement("button");
+    addTopicButton.textContent = "Add Topic";
+
+    addTopicButton.addEventListener("click", function (event) {
+        event.stopPropagation();
+
+        selectedSubjectIndex = subjects.indexOf(subject);
+        selectedChapterIndex = chapterIndex;
+
+        topicDialog.showModal();
+    });
+
+    sidebarTopicContainer.append(addTopicButton);
+}
+function renderChapters(subject, sidebarChapterContainer) {
+    for (let m = 0; m < subject.chapters.length; m++) {
+
+        let sidebarChapterElement = document.createElement("div");
+        let sidebarTopicContainer = document.createElement("div");
+
+        let topicsVisible = false;
+
+        sidebarChapterElement.textContent = subject.chapters[m].name;
+
+        sidebarChapterElement.addEventListener("click", function (event) {
+            event.stopPropagation();
+
+            if (topicsVisible === false) {
+                renderTopics(subject, m, sidebarTopicContainer);
+                topicsVisible = true;
+            }
+            else {
+                sidebarTopicContainer.innerHTML = "";
+                topicsVisible = false;
+            }
+        });
+
+        if (
+            subjects.indexOf(subject) === selectedSubjectIndex &&
+            m === selectedChapterIndex
+        ) {
+            renderTopics(subject, m, sidebarTopicContainer);
+            topicsVisible = true;
         }
 
-        let addChapButton = document.createElement("button");
-        addChapButton.textContent = "Add Chapter";
-        addChapButton.addEventListener("click", function (event) {
-            event.stopPropagation();
-            selectedSubjectIndex = subjects.indexOf(subject);
-            chapterDialog.showModal();
-        });
-        sidebarChapterContainer.append(addChapButton);
-    };
+        sidebarChapterElement.append(sidebarTopicContainer);
+
+        sidebarChapterContainer.append(
+            sidebarChapterElement
+        );
+    }
+
+    let addChapButton = document.createElement("button");
+    addChapButton.textContent = "Add Chapter";
+
+    addChapButton.addEventListener("click", function (event) {
+        event.stopPropagation();
+
+        selectedSubjectIndex = subjects.indexOf(subject);
+
+        chapterDialog.showModal();
+    });
+
+    sidebarChapterContainer.append(addChapButton);
+}
 
 function renderSidebar(){
     sidebarSubjects.innerHTML = "";

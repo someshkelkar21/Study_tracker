@@ -233,34 +233,45 @@ let addTopicDialogButton = document.getElementById("addTopicButton");
 let topicDialog = document.getElementById("topicDialog");
 let selectedSubjectIndex;
 let selectedChapterIndex;
+
+// Reusable beginner-friendly helper to generate IDs using: highest existing ID + 1
+function getNextId(array) {
+    let maxId = 0;
+    for (let i = 0; i < array.length; i++) {
+        if (array[i].id > maxId) {
+            maxId = array[i].id;
+        }
+    }
+    return maxId + 1;
+}
+
 addSubButton.className = "addSubButton";
 addSubButton.addEventListener("click", function () {
     let name = subjectInput.value;
     if (name.trim() === "") {
-        return
+        return;
     };
     let newsubject = {
-    id: subjects.length + 1,
-    name: name,
-    chapters: []
-};
+        id: getNextId(subjects),
+        name: name,
+        chapters: []
+    };
 
-subjects.push(newsubject);
-dashboardSubjects.innerHTML = "";
-sidebarSubjects.innerHTML = "";
-renderDashboard();
-renderSidebar();
-subjectInput.value = "";
-}
-);
+    subjects.push(newsubject);
+    dashboardSubjects.innerHTML = "";
+    sidebarSubjects.innerHTML = "";
+    renderDashboard();
+    renderSidebar();
+    subjectInput.value = "";
+});
 
 addChapterButton.addEventListener("click", function () {
     let name = chapterNameInput.value;
-     if (name.trim() === "") {
+    if (name.trim() === "") {
         return;
     }
-     let newChapter = {
-        id: subjects[selectedSubjectIndex].chapters.length + 1,
+    let newChapter = {
+        id: getNextId(subjects[selectedSubjectIndex].chapters),
         name: name,
         topics: []
     };
@@ -271,61 +282,63 @@ addChapterButton.addEventListener("click", function () {
 
     chapterDialog.close();
 });
+
 addTopicDialogButton.addEventListener("click", function () {
     let name = topicNameInput.value;
-
     if (name.trim() === "") {
         return;
     }
     let newTopic = {
-    id: subjects[selectedSubjectIndex].chapters[selectedChapterIndex].topics.length + 1,
-    name: name,
-    completed: false
-};
-subjects[selectedSubjectIndex]
-    .chapters[selectedChapterIndex]
-    .topics.push(newTopic);
-renderDashboard();
-renderSidebar();
-topicDialog.close();
-topicNameInput.value = "";
+        id: getNextId(subjects[selectedSubjectIndex].chapters[selectedChapterIndex].topics),
+        name: name,
+        completed: false
+    };
+    subjects[selectedSubjectIndex]
+        .chapters[selectedChapterIndex]
+        .topics.push(newTopic);
+    renderDashboard();
+    renderSidebar();
+    topicDialog.close();
+    topicNameInput.value = "";
 });
+
 let container = document.getElementById("dashboardSubjects");
 
 function renderDashboard() {
-dashboardSubjects.innerHTML = "";
-for (let k = 0; k < subjects.length; k++) {
-    let subjectCompletionData = getProgress(subjects[k]);
-    let dashboardSubjectContainer = document.createElement("div");
-    dashboardSubjectContainer.className = "subject-card";
-    let subjectNameElement = document.createElement("h2");
-    subjectNameElement.textContent = subjects[k].name;
-    let completedTopicsElement = document.createElement("p");
-    completedTopicsElement.textContent = "Completed Topics: " +subjectCompletionData.completedTopics;
-    let totalTopicsElement = document.createElement("p");
-    totalTopicsElement.textContent = "Total Topics: " +subjectCompletionData.totalTopics;
-    let completedChaptersElement = document.createElement("p");
-    completedChaptersElement.textContent = "Completed Chapters: " +subjectCompletionData.completedChapters;
-    let totalChaptersElement = document.createElement("p");
-    totalChaptersElement.textContent = "Total Chapters: " +subjectCompletionData.totalChapters;
-    let progressElement = document.createElement("p");
-    if (subjectCompletionData.progress%1 === 0){
-        progressElement.textContent = "Progress: " +subjectCompletionData.progress+"%";
-    }
-    else {
-        progressElement.textContent = "Progress: " +subjectCompletionData.progress.toFixed(2)+"%";}
-     progressElement.className = "progress";
+    dashboardSubjects.innerHTML = "";
+    for (let k = 0; k < subjects.length; k++) {
+        let subjectCompletionData = getProgress(subjects[k]);
+        let dashboardSubjectContainer = document.createElement("div");
+        dashboardSubjectContainer.className = "subject-card";
+        let subjectNameElement = document.createElement("h2");
+        subjectNameElement.textContent = subjects[k].name;
+        let completedTopicsElement = document.createElement("p");
+        completedTopicsElement.textContent = "Completed Topics: " + subjectCompletionData.completedTopics;
+        let totalTopicsElement = document.createElement("p");
+        totalTopicsElement.textContent = "Total Topics: " + subjectCompletionData.totalTopics;
+        let completedChaptersElement = document.createElement("p");
+        completedChaptersElement.textContent = "Completed Chapters: " + subjectCompletionData.completedChapters;
+        let totalChaptersElement = document.createElement("p");
+        totalChaptersElement.textContent = "Total Chapters: " + subjectCompletionData.totalChapters;
+        let progressElement = document.createElement("p");
+        if (subjectCompletionData.progress % 1 === 0) {
+            progressElement.textContent = "Progress: " + subjectCompletionData.progress + "%";
+        } else {
+            progressElement.textContent = "Progress: " + subjectCompletionData.progress.toFixed(2) + "%";
+        }
+        progressElement.className = "progress";
         dashboardSubjectContainer.append(
-    subjectNameElement,
-    completedTopicsElement,
-    totalTopicsElement,
-    completedChaptersElement,
-    totalChaptersElement,
-    progressElement
-);
-dashboardSubjects.append(dashboardSubjectContainer);
-}   
-};
+            subjectNameElement,
+            completedTopicsElement,
+            totalTopicsElement,
+            completedChaptersElement,
+            totalChaptersElement,
+            progressElement
+        );
+        dashboardSubjects.append(dashboardSubjectContainer);
+    }
+}
+
 function renderTopics(subject, chapterIndex, sidebarTopicContainer) {
     sidebarTopicContainer.innerHTML = "";
 
@@ -337,23 +350,31 @@ function renderTopics(subject, chapterIndex, sidebarTopicContainer) {
 
         sidebarTopicCheckbox.addEventListener("click", function (event) {
             event.stopPropagation();
-
-            subject.chapters[chapterIndex].topics[n].completed =
-                sidebarTopicCheckbox.checked;
-
+            subject.chapters[chapterIndex].topics[n].completed = sidebarTopicCheckbox.checked;
             renderDashboard();
         });
 
-        sidebarTopicCheckbox.checked =
-            subject.chapters[chapterIndex].topics[n].completed;
+        sidebarTopicCheckbox.checked = subject.chapters[chapterIndex].topics[n].completed;
 
         let sidebarTopicName = document.createElement("span");
-        sidebarTopicName.textContent =
-            subject.chapters[chapterIndex].topics[n].name;
+        sidebarTopicName.textContent = subject.chapters[chapterIndex].topics[n].name;
+
+        let deleteBtn = document.createElement("button");
+        deleteBtn.textContent = "Delete";
+        deleteBtn.className = "delete-btn";
+        deleteBtn.addEventListener("click", function (event) {
+            event.stopPropagation();
+            if (confirm("Are you sure you want to delete the topic '" + subject.chapters[chapterIndex].topics[n].name + "'?")) {
+                subject.chapters[chapterIndex].topics.splice(n, 1);
+                renderDashboard();
+                renderSidebar();
+            }
+        });
 
         sidebarTopicElement.append(
             sidebarTopicCheckbox,
-            sidebarTopicName
+            sidebarTopicName,
+            deleteBtn
         );
 
         sidebarTopicContainer.append(sidebarTopicElement);
@@ -364,35 +385,53 @@ function renderTopics(subject, chapterIndex, sidebarTopicContainer) {
 
     addTopicButton.addEventListener("click", function (event) {
         event.stopPropagation();
-
         selectedSubjectIndex = subjects.indexOf(subject);
         selectedChapterIndex = chapterIndex;
-
         topicDialog.showModal();
     });
 
     sidebarTopicContainer.append(addTopicButton);
 }
+
 function renderChapters(subject, sidebarChapterContainer) {
     for (let m = 0; m < subject.chapters.length; m++) {
-
         let sidebarChapterElement = document.createElement("div");
         let sidebarTopicContainer = document.createElement("div");
-
         let topicsVisible = false;
 
-        sidebarChapterElement.textContent = subject.chapters[m].name;
+        let chapterNameSpan = document.createElement("span");
+        chapterNameSpan.textContent = subject.chapters[m].name;
+
+        let deleteBtn = document.createElement("button");
+        deleteBtn.textContent = "Delete";
+        deleteBtn.className = "delete-btn";
+        deleteBtn.addEventListener("click", function (event) {
+            event.stopPropagation();
+            if (confirm("Are you sure you want to delete the chapter '" + subject.chapters[m].name + "'?")) {
+                subject.chapters.splice(m, 1);
+                if (selectedChapterIndex === m) {
+                    selectedChapterIndex = undefined;
+                } else if (selectedChapterIndex > m) {
+                    selectedChapterIndex--;
+                }
+                renderDashboard();
+                renderSidebar();
+            }
+        });
 
         sidebarChapterElement.addEventListener("click", function (event) {
             event.stopPropagation();
-
             if (topicsVisible === false) {
                 renderTopics(subject, m, sidebarTopicContainer);
                 topicsVisible = true;
-            }
-            else {
+                selectedSubjectIndex = subjects.indexOf(subject);
+                selectedChapterIndex = m;
+            } else {
                 sidebarTopicContainer.innerHTML = "";
                 topicsVisible = false;
+                if (subjects.indexOf(subject) === selectedSubjectIndex && selectedChapterIndex === m) {
+                    selectedChapterIndex = undefined;
+                }
             }
         });
 
@@ -404,11 +443,8 @@ function renderChapters(subject, sidebarChapterContainer) {
             topicsVisible = true;
         }
 
-        sidebarChapterElement.append(sidebarTopicContainer);
-
-        sidebarChapterContainer.append(
-            sidebarChapterElement
-        );
+        sidebarChapterElement.append(chapterNameSpan, deleteBtn, sidebarTopicContainer);
+        sidebarChapterContainer.append(sidebarChapterElement);
     }
 
     let addChapButton = document.createElement("button");
@@ -416,38 +452,63 @@ function renderChapters(subject, sidebarChapterContainer) {
 
     addChapButton.addEventListener("click", function (event) {
         event.stopPropagation();
-
         selectedSubjectIndex = subjects.indexOf(subject);
-
         chapterDialog.showModal();
     });
 
     sidebarChapterContainer.append(addChapButton);
 }
 
-function renderSidebar(){
+function renderSidebar() {
     sidebarSubjects.innerHTML = "";
-for (let l =0; l < subjects.length; l++) {
-    let sidebarSubjectContainer = document.createElement("div");
-    let sidebarChapterContainer = document.createElement("div");
-    sidebarSubjectContainer.className = "sidebarSubject";
-    sidebarSubjectContainer.textContent = subjects[l].name;
-    if (l === selectedSubjectIndex) {
-        renderChapters(subjects[l], sidebarChapterContainer);
+    for (let l = 0; l < subjects.length; l++) {
+        let sidebarSubjectContainer = document.createElement("div");
+        let sidebarChapterContainer = document.createElement("div");
+        sidebarSubjectContainer.className = "sidebarSubject";
+
+        let subjectNameSpan = document.createElement("span");
+        subjectNameSpan.textContent = subjects[l].name;
+
+        let deleteBtn = document.createElement("button");
+        deleteBtn.textContent = "Delete";
+        deleteBtn.className = "delete-btn";
+        deleteBtn.addEventListener("click", function (event) {
+            event.stopPropagation();
+            if (confirm("Are you sure you want to delete the subject '" + subjects[l].name + "'?")) {
+                subjects.splice(l, 1);
+                if (selectedSubjectIndex === l) {
+                    selectedSubjectIndex = undefined;
+                    selectedChapterIndex = undefined;
+                } else if (selectedSubjectIndex > l) {
+                    selectedSubjectIndex--;
+                }
+                renderDashboard();
+                renderSidebar();
+            }
+        });
+
+        if (l === selectedSubjectIndex) {
+            renderChapters(subjects[l], sidebarChapterContainer);
+        }
+
+        sidebarSubjectContainer.addEventListener("click", function () {
+            if (sidebarChapterContainer.innerHTML === "") {
+                renderChapters(subjects[l], sidebarChapterContainer);
+                selectedSubjectIndex = l;
+            } else {
+                sidebarChapterContainer.innerHTML = "";
+                if (selectedSubjectIndex === l) {
+                    selectedSubjectIndex = undefined;
+                    selectedChapterIndex = undefined;
+                }
+            }
+        });
+
+        sidebarSubjectContainer.append(subjectNameSpan, deleteBtn, sidebarChapterContainer);
+        sidebarSubjects.append(sidebarSubjectContainer);
     }
-    sidebarSubjectContainer.addEventListener("click", function () {
-        if (sidebarChapterContainer.innerHTML === ""){
-            renderChapters(subjects[l], sidebarChapterContainer);}
-        else {sidebarChapterContainer.innerHTML = ""};
-
-});
-sidebarSubjectContainer.append( sidebarChapterContainer,
- );
-sidebarSubjects.append(sidebarSubjectContainer,
-);
 }
-};
 
-renderDashboard();   
+renderDashboard();
 renderSidebar();
 

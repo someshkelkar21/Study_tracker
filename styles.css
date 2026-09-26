@@ -61,3 +61,16 @@
 .addSubButton {
     cursor: pointer;
 }
+.delete-btn {
+    margin-left: 8px;
+    padding: 2px 6px;
+    font-size: 11px;
+    cursor: pointer;
+    background-color: #ffcccc;
+    border: 1px solid red;
+    border-radius: 4px;
+}
+.delete-btn:hover {
+    background-color: red;
+    color: white;
+}

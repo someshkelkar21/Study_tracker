@@ -4,185 +4,149 @@
 
 **Study Tracker**
 
-A personal web application for planning, tracking, and measuring study progress.
+* A personal web application for planning, tracking, and measuring study progress.
 
-This is both a useful personal tool and a learning project for improving my software development skills.
+* This is both a useful personal tool and a learning project for improving my software development skills.
 
-Developer
+* I am a beginner/intermediate learner.
 
-I am a beginner/intermediate learner.
+### I already know:
 
-I already know
+* Basic HTML
 
-Basic **HTML**
+* Basic **CSS**
 
-Basic **CSS**
+* Basic JavaScript
 
-Basic JavaScript
+* Basic Git
 
-### Basic Git
+* Basic GitHub
 
-Basic GitHub
+* VS Code
 
-VS Code
+* GitHub Pages
 
-GitHub Pages
+### I am learning:
 
-I am learning
+* JavaScript in greater depth
 
-JavaScript in greater depth
+* Application architecture
 
-Application architecture
+* State management
 
-State management
+* Data persistence
 
-Data persistence
+* Date/time handling
 
-Date/time handling
+* Advanced Git workflows
 
-Advanced Git workflows
+* Software design
 
-Software design
-
-Working effectively with AI coding tools
+* Working effectively with AI coding tools
 
 ### Product Vision
 
 The Study Tracker should allow me to:
 
-Manage my subjects.
+* Manage my subjects.
 
-Add custom subjects in the future.
+* Add custom subjects in the future.
 
-Enter and organize my syllabus.
+* Enter and organize my syllabus.
 
-Track syllabus completion item by item.
+* Track syllabus completion item by item.
 
-Create a personal workplan.
+* Create a personal workplan.
 
-Create a daily routine.
+* Create a daily routine.
 
-Track how much time I actually study.
+* Track how much time I actually study.
 
-Use a clock.
+* Use a clock.
 
-Use a countdown timer.
+* Use a countdown timer.
 
-Use a stopwatch.
+* Use a stopwatch.
 
-See what has been completed.
+* See what has been completed.
 
-See how much remains.
+* See how much remains.
 
-See percentage progress.
+* See percentage progress.
 
-Estimate roughly how much time is required to finish remaining work.
+* Estimate roughly how much time is required to finish remaining work.
 
-Eventually use my historical study data to make time estimates more accurate.
+* Eventually use my historical study data to make time estimates more accurate.
 
-The application should remain useful, simple, and understandable rather than becoming unnecessarily complex.
+* The application should remain useful, simple, and understandable rather than becoming unnecessarily complex.
 
-### Initial Subjects
+**The application must eventually allow users to:**
 
-The initial subjects are:
+* Add subjects
 
-Maths
+* Rename subjects
 
-Science
+* Remove subjects
 
-**SST**
+### Technology
 
-English
+#### Current stack
 
-Sanskrit
+* HTML
 
-### Information Technology
+* CSS
 
-These are default subjects, not permanent hard-coded subjects.
+* JavaScript
 
-The application must eventually allow users to:
+* Browser local storage initially
 
-Add subjects
+* Git
 
-Rename subjects
+* GitHub
 
-Remove subjects
+* GitHub Pages
 
-Technology
+#### AI tools
 
-Current stack
+* ChatGPT — planning, learning, architecture, explanations, debugging, code review
 
-**HTML**
+* Gemini CLI — repository inspection and implementation assistance
 
-**CSS**
+#### Frameworks
 
-JavaScript
+* Do not introduce React, Vue, Angular, or another frontend framework unless there is a clear future reason to do so.
 
-Browser local storage initially
+* Start with vanilla HTML, CSS, and JavaScript.
 
-Git
-
-GitHub
-
-GitHub Pages
-
-AI tools
-
-ChatGPT — planning, learning, architecture, explanations, debugging, code review
-
-Gemini **CLI** — repository inspection and implementation assistance
-
-Frameworks
-
-Do not introduce React, Vue, Angular, or another frontend framework unless there is a clear future reason to do so.
-
-Start with vanilla **HTML**, **CSS**, and JavaScript.
-
-Backend
+#### Backend
 
 None initially.
 
-Database
+#### Database
 
 None initially.
 
 Use browser-side persistence initially.
 
-### Core Features
+## Core Features
 
-## Subject Management
+### Subject Management
 
 Users should be able to manage subjects.
 
-Initial default subjects:
+* Add subject
 
-Maths
+* Edit subject
 
-Science
+* Delete subject
 
-**SST**
+* Potentially customize subject color/icon
 
-English
+### Syllabus Management
 
-Sanskrit
+**Each subject should contain syllabus content.**
 
-### Information Technology
-
-Future functionality:
-
-Add subject
-
-Edit subject
-
-Delete subject
-
-Potentially customize subject color/icon
-
-## Syllabus Management
-
-Each subject should contain syllabus content.
-
-A syllabus may have a hierarchy such as:
+* A syllabus may have a hierarchy such as:
 
 Subject → Chapter → Topic
 
@@ -204,9 +168,9 @@ Topic 1
 
 Topic 2
 
-Syllabus items should be individually trackable.
+* Syllabus items should be individually trackable.
 
-Possible future states:
+* Possible future states:
 
 Not started
 
@@ -216,9 +180,9 @@ Completed
 
 The first implementation may use a simpler completion model if that keeps the architecture understandable.
 
-## Progress Tracking
+### Progress Tracking
 
-The application should calculate:
+* The application should calculate:
 
 Completed items
 
@@ -238,13 +202,13 @@ Maths:
 
 8 topics remaining
 
-The application should eventually provide both:
+* The application should eventually provide both:
 
 Subject-level progress
 
 Overall syllabus progress
 
-## Workplan
+### Workplan
 
 The user should be able to create study tasks/workplans.
 
@@ -256,9 +220,9 @@ Science — Revise Chapter 3
 
 English — Learn poem
 
-**SST** — Read Chapter 5
+SST — Read Chapter 5
 
-Tasks may eventually contain:
+* Tasks may eventually contain:
 
 Subject
 
@@ -274,7 +238,7 @@ Estimated time
 
 Actual time
 
-## Daily Routine
+### Daily Routine
 
 The user should be able to create a recurring or reusable daily routine.
 
@@ -298,11 +262,11 @@ Example:
 
 The routine is conceptually different from the workplan.
 
-Routine: When activities normally happen.
+**Routine: When activities normally happen.**
 
-Workplan: What needs to be accomplished.
+**Workplan: What needs to be accomplished.**
 
-6. Clock
+### Clock
 
 Provide a basic live clock component.
 
@@ -316,7 +280,7 @@ Day
 
 Keep the first implementation simple.
 
-## Countdown Timer
+### Countdown Timer
 
 Provide a timer that supports:
 
@@ -332,7 +296,7 @@ Example:
 
 45:00 → 44:59 → 44:58 ...
 
-## Stopwatch
+### Stopwatch
 
 Provide a stopwatch that supports:
 
@@ -348,7 +312,7 @@ Example:
 
 00:00 → 00:01 → 00:02 ...
 
-## Study Time Tracking
+### Study Time Tracking
 
 The application should record actual study time.
 
@@ -370,7 +334,7 @@ Study time grouped by day and/or subject.
 
 Historical data should eventually support statistics and better time estimates.
 
-## Time Estimation
+### Time Estimation
 
 The application should provide a rough estimate of how long remaining work may take.
 
@@ -408,11 +372,11 @@ Estimated remaining time:
 
 These estimates should always be treated as approximate.
 
-**MVP** Roadmap
+## MVP Roadmap
 
 The project will be built incrementally.
 
-Version 0.1 — Syllabus Foundation
+### Version 1 — Syllabus Foundation
 
 Goal:
 
@@ -432,7 +396,11 @@ Progress calculations
 
 Basic dashboard
 
-Version 0.2 — Workplan
+Managing subjects (adding or deleting subjects)
+
+localstorage
+
+### Version 2 — Workplan
 
 Features:
 
@@ -448,7 +416,7 @@ Estimated task duration
 
 Basic daily workplan
 
-Version 0.3 — Time Tools
+### Version 3 — Time Tools
 
 Features:
 
@@ -458,7 +426,7 @@ Countdown timer
 
 Stopwatch
 
-Version 0.4 — Study Time Tracking
+### Version 4 — Study Time Tracking
 
 Features:
 
@@ -472,7 +440,7 @@ Track weekly study time
 
 Basic statistics
 
-Version 0.5 — Daily Routine
+### Version 5 — Daily Routine
 
 Features:
 
@@ -484,7 +452,7 @@ View daily routine
 
 Support recurring routine items
 
-Version 0.6 — Time Estimation
+### Version 6 — Time Estimation
 
 Features:
 
@@ -556,7 +524,7 @@ Subjects and syllabus should eventually be represented as data rather than hard-
 
 The application should be designed so new subjects and syllabus items can be added without changing the application logic.
 
-### Git Workflow
+## Git Workflow
 
 Normal development cycle:
 
@@ -588,11 +556,11 @@ git push
 
 
 
-Git commits should represent meaningful checkpoints.
+**Git commits should represent meaningful checkpoints.**
 
-AI Workflow
+## AI Workflow
 
-ChatGPT
+### ChatGPT
 
 Use ChatGPT primarily for:
 
@@ -614,9 +582,9 @@ Breaking large tasks into smaller tasks
 
 ChatGPT should act as a mentor and development partner.
 
-Gemini **CLI**
+### Gemini CLI
 
-Use Gemini **CLI** primarily for:
+Use Gemini CLI primarily for:
 
 Inspecting the repository
 
@@ -646,9 +614,9 @@ Deciding whether changes should be kept
 
 Committing changes to Git
 
-### Learning Notes
+## Learning Notes
 
-Use **LEARNING**-**NOTES**.md to record concepts learned during development.
+Use LEARNING-NOTES.md to record concepts learned during development.
 
 Examples:
 
@@ -668,51 +636,53 @@ The goal is not just to finish the application.
 
 The goal is to become a better developer while building it.
 
-### Current Project State
+## Current Project State
 
-**## Current Session
+### Current Session
 
-We completed the syllabus foundation features for v0.1.
+We completed the delete functionality for the syllabus foundation.
 
-Decisions
+#### Decisions
 
-Subject → Chapter → Topic hierarchy
+* Subject → Chapter → Topic hierarchy
+* Numeric IDs
+* Topic has a completed state
+* Progress is calculated, not stored
+* localStorage will be used for persistence
+* Subjects can be added through the UI
+* Chapters can be added through the UI
+* Topics can be added through the UI
+* Topic completion can be tracked with checkboxes
+* Chapter completion is calculated from topic completion
+* Subjects, chapters, and topics can be deleted
+* Delete actions require confirmation
+* New IDs use the highest existing ID + 1
+* Deleted IDs are not reused
 
-Numeric IDs
+### Current Checkpoint
 
-Topic has a completed state
+* Add Subject functionality is working
+* Add Chapter functionality is working
+* Add Topic functionality is working
+* Sidebar subject → chapter → topic navigation is working
+* Topic checkbox state updates the data and dashboard progress
+* Subject deletion is working
+* Chapter deletion is working
+* Topic deletion is working
+* UI re-renders after deletion
+* Selection state is preserved appropriately after deletion
 
-Progress is calculated, not stored
-
-localStorage will be used for persistence
-
-Subjects can be added through the UI
-
-Chapters can be added through the UI
-
-Topics can be added through the UI
-
-Topic completion can be tracked with checkboxes
-
-Chapter completion is calculated from topic completion
-
-Current Checkpoint
-
-Add Subject functionality is working
-
-Add Chapter functionality is working
-
-Add Topic functionality is working
-
-Sidebar subject → chapter → topic navigation is working
-
-Topic checkbox state updates the data and dashboard progress
-
-Next Task
+### Next Task
 
 Learn and implement localStorage persistence.
 
-Development Approach**
+### Later UI Work
+
+* Refine delete buttons and other controls
+* General UI polish
+* Advanced responsiveness and visual polish remain outside the current V1 functionality scope
+
+## Development Approach
 
 The developer is learning through this project.
 
@@ -742,7 +712,7 @@ The project is expected to take several months.
 
 Progress is more important than speed.
 
-AI Instructions
+## AI Instructions
 
 I am a beginner/intermediate developer learning by building.
 
@@ -782,4 +752,4 @@ Do not implement future features prematurely.
 
 If project requirements are unclear, ask before making assumptions.
 
-PROJECT_CONTEXT.md is the source of truth for the current project state.
+**PROJECT_CONTEXT.md is the source of truth for the current project state.**

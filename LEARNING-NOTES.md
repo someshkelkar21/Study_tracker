@@ -74,6 +74,21 @@
 
 * New topics start with `completed: false`.
 
+* `splice(index, 1)` can be used to remove one specific item from an array.
+
+* Delete functionality can be implemented at different levels of a nested data structure: subject, chapter, and topic.
+
+* `event.stopPropagation()` is important when a button is placed inside another clickable element, because it prevents the button click from triggering the parent's click event.
+
+* `confirm()` can be used to ask the user for confirmation before performing a destructive action.
+
+* IDs should identify data items independently from their current array positions. After deletion, array indexes can change, but IDs should remain stable.
+
+* A reusable `getNextId()` function can generate a new ID by finding the highest existing ID and adding `1`.
+
+* Deleting an item from the data and then re-rendering the UI keeps the interface synchronized with the application data.
+
+
 ## Things I Don't Understand Yet
 
 * Local Storage and how to use it to save and load the `subjects` data.
@@ -124,3 +139,10 @@
 * Dynamic DOM rendering
 * Persistence
 * Local Storage
+* Array deletion with `splice()`
+* Confirmation with `confirm()`
+* Event propagation and `event.stopPropagation()`
+* Stable IDs
+* Array index vs ID
+* Reusable helper functions
+* Re-rendering after data changes

@@ -14,6 +14,10 @@ It is also a learning project through which I am learning software development b
 * Calculate chapter completion
 * Calculate subject progress
 * Display subject progress on the dashboard
+* Delete subjects, chapters, and topics
+* Confirm destructive delete actions
+* Persist syllabus data using Browser Local Storage
+* Load saved syllabus data when the application starts
 
 ## Tech Stack
 
@@ -27,9 +31,12 @@ It is also a learning project through which I am learning software development b
 
 ## Current Status
 
-The syllabus foundation of Version 0.1 is working.
+* The syllabus foundation of Version 0.1 is working.
 
-The next planned step is adding Local Storage persistence so that the user's data can be saved between visits.
+* The application supports creating, managing, tracking, deleting, and persisting syllabus data using
+Browser Local Storage.
+
+* The application starts with an empty syllabus when no saved data exists, allowing the user to build their own subjects and syllabus through the UI.
 
 ## Learning Project
 

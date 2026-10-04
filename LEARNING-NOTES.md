@@ -41,7 +41,30 @@
   * `addEventListener()`
   * Click events
   * `innerHTML`
+  * localStorage
 
+
+* Local Storage stores data as key/value pairs, and the stored values are strings.
+
+* JavaScript objects and arrays cannot be stored directly in Local Storage. `JSON.stringify()` converts JavaScript data into a JSON string before saving it.
+
+* `JSON.parse()` converts a JSON string from Local Storage back into a JavaScript object or array.
+
+* `localStorage.setItem()` saves a value, while `localStorage.getItem()` retrieves a value.
+
+* `localStorage.removeItem()` can remove a stored key from Local Storage.
+
+* A reusable `saveSubjects()` function keeps persistence logic in one place. It converts the `subjects` array to JSON and saves it to Local Storage.
+
+* A reusable `loadSubjects()` function loads the saved subjects when the application starts.
+
+* Data should be saved after a change to the application data, such as adding, deleting, or updating a subject, chapter, topic, or completion state.
+
+* Rendering the UI and saving data are separate responsibilities. Rendering displays the current data, while saving persists the data.
+
+* Local Storage persists data across page refreshes and browser sessions for the same browser/origin, but it is not a server database and does not automatically sync between devices.
+
+* Hard-coded syllabus data was removed after Local Storage persistence was tested successfully. The application can now start with an empty `subjects` array and build the user's syllabus through the UI.
 * `let` variables are scoped to the block/function in which they are declared. A variable created inside a function cannot be directly accessed outside that function.
 
 * Event listeners use a callback function that runs when the specified event happens.
@@ -91,13 +114,8 @@
 
 ## Things I Don't Understand Yet
 
-* Local Storage and how to use it to save and load the `subjects` data.
-
 ## Questions
 
-* How does JavaScript store objects and arrays in Local Storage?
-* How does the application load saved data when the page starts?
-* When should the application save changes to Local Storage?
 
 ## Mistakes I Made
 
@@ -114,6 +132,10 @@
 * Initially placed the Add Topic button inside the wrong rendering logic, which caused it to disappear or appear outside the intended topic structure after re-rendering.
 
 * Learned that using `innerHTML === ""` to determine whether topics are visible becomes unreliable when the topic container also contains an Add Topic button.
+
+* Initially kept hard-coded syllabus data as the starting application state. After persistence was verified, removed the hard-coded subjects so the application can start empty and allow the user to create their own syllabus.
+
+* Learned that saving should happen after changing the application data, not before the change.
 
 ## Important Concepts
 
@@ -146,3 +168,14 @@
 * Array index vs ID
 * Reusable helper functions
 * Re-rendering after data changes
+* Local Storage
+* `localStorage.setItem()`
+* `localStorage.getItem()`
+* `localStorage.removeItem()`
+* `JSON.stringify()`
+* `JSON.parse()`
+* Saving application data
+* Loading application data
+* Persistence
+* Separating persistence logic from rendering logic
+* Empty initial application state

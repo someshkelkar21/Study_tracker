@@ -640,41 +640,91 @@ The goal is to become a better developer while building it.
 
 ### Current Session
 
-We completed the delete functionality for the syllabus foundation.
+The syllabus foundation and Local Storage persistence are now working.
 
-#### Decisions
+#### Architecture
 
 * Subject → Chapter → Topic hierarchy
-* Numeric IDs
-* Topic has a completed state
-* Progress is calculated, not stored
-* localStorage will be used for persistence
-* Subjects can be added through the UI
-* Chapters can be added through the UI
-* Topics can be added through the UI
-* Topic completion can be tracked with checkboxes
-* Chapter completion is calculated from topic completion
-* Subjects, chapters, and topics can be deleted
-* Delete actions require confirmation
-* New IDs use the highest existing ID + 1
+* `subjects` is the application data/source of truth
+* Numeric IDs are used for subjects, chapters, and topics
+* IDs are independent from array indexes
 * Deleted IDs are not reused
+* Progress is calculated from topic completion rather than stored
+* Chapter completion is calculated from its topics
+* UI state is kept separate from application data
+* Reusable rendering functions are used for subjects, chapters, and topics
 
-### Current Checkpoint
+#### Current Functionality
 
 * Add Subject functionality is working
 * Add Chapter functionality is working
 * Add Topic functionality is working
 * Sidebar subject → chapter → topic navigation is working
-* Topic checkbox state updates the data and dashboard progress
+* Topic checkbox state updates the data
+* Chapter completion is calculated automatically
+* Subject progress is calculated automatically
 * Subject deletion is working
 * Chapter deletion is working
 * Topic deletion is working
-* UI re-renders after deletion
-* Selection state is preserved appropriately after deletion
+* Delete actions require confirmation
+* UI re-renders after data changes
+* Selection state is preserved appropriately
+* Local Storage persistence is working
+* Subjects are saved to Local Storage after data changes
+* Subjects are loaded from Local Storage when the application starts
+* Data survives page refreshes and browser sessions for the same browser/origin
+* Hard-coded syllabus data has been removed
+* The application now starts with an empty `subjects` array when no saved data exists
+
+### Persistence Design
+
+* Local Storage key: `subjects`
+* `saveSubjects()` handles saving the current `subjects` array
+* `loadSubjects()` handles loading saved subjects during application startup
+* `JSON.stringify()` is used when saving
+* `JSON.parse()` is used when loading
+* Persistence is triggered after application data changes
+* Rendering does not perform persistence
+
+### Testing Completed
+
+The following persistence scenarios have been tested:
+
+* Existing saved subjects survive a page refresh
+* Empty Local Storage loads without errors
+* Newly added subjects persist after refresh
+* Chapters persist after refresh
+* Topics persist after refresh
+* Topic completion persists after refresh
+* Deleted data remains deleted after refresh
+* Hard-coded subjects were removed successfully
+* Existing syllabus functionality continues to work
+
+### Current Known Issues
+
+* Delete button styling and general UI polish are still basic.
+* Advanced responsiveness and visual polish remain outside the current V1 scope.
+* Title of subject card overflows if long.
+
+### Current Checkpoint
+
+Local Storage persistence for the syllabus foundation is complete and tested.
+
+The V0.1 syllabus foundation now supports:
+
+* Creating subjects
+* Creating chapters
+* Creating topics
+* Tracking topic completion
+* Calculating chapter completion
+* Calculating subject progress
+* Deleting subjects, chapters, and topics
+* Persisting syllabus data with Local Storage
+* Starting with an empty syllabus when no saved data exists
 
 ### Next Task
 
-Learn and implement localStorage persistence.
+* Testing & edge cases
 
 ### Later UI Work
 
@@ -753,3 +803,176 @@ Do not implement future features prematurely.
 If project requirements are unclear, ask before making assumptions.
 
 **PROJECT_CONTEXT.md is the source of truth for the current project state.**
+
+## V1 ROADMAP
+
+**Goal:** Build a complete, usable Study Tracker V1 focused on syllabus management, progress tracking, persistence, and a clean basic dashboard.
+
+---
+
+### PHASE 1 — Core Data & Syllabus
+
+* [x] Subject → Chapter → Topic data model
+* [x] Subjects stored as JavaScript data
+* [x] Chapters stored inside subjects
+* [x] Topics stored inside chapters
+* [x] Topic `completed` state
+* [x] Numeric IDs
+* [x] Stable ID generation with `getNextId()`
+
+---
+
+### PHASE 2 — Progress System
+
+* [x] Calculate total topics
+* [x] Calculate completed topics
+* [x] Calculate subject progress
+* [x] Calculate total chapters
+* [x] Calculate completed chapters
+* [x] Derive chapter completion from topic completion
+* [x] Display progress on subject cards
+
+---
+
+### PHASE 3 — Basic Dashboard & Navigation
+
+* [x] Dashboard
+* [x] Subject cards
+* [x] Sidebar
+* [x] Subject selection
+* [x] Chapter expansion/selection
+* [x] Topic display
+* [x] Topic completion checkboxes
+* [x] Re-render UI after data changes
+
+---
+
+### PHASE 4 — User Input
+
+* [x] Add Subject
+* [x] Add Chapter
+* [x] Add Topic
+* [x] User-provided subject names
+* [x] User-provided chapter names
+* [x] User-provided topic names
+* [x] Input validation for required fields
+
+---
+
+### PHASE 5 — Delete & Data Management
+
+* [x] Delete Topic
+* [x] Delete Chapter
+* [x] Delete Subject
+* [x] Confirmation before deletion
+* [x] Correct nested-array deletion using `splice()`
+* [x] Preserve selection state after deletion
+* [x] Prevent delete-button click from triggering parent click with `stopPropagation()`
+* [x] Re-render after deletion
+* [x] Stable IDs remain independent of array indexes
+
+---
+
+### PHASE 6 — Persistence
+
+* [x] Understand LocalStorage
+* [x] Convert application state to storable data
+* [x] Save `subjects` to LocalStorage
+* [x] Load `subjects` from LocalStorage
+* [x] Load saved data when the app starts
+* [x] Save changes after relevant data mutations
+* [x] Handle first-time users with no saved data
+* [x] Test persistence after page refresh
+* [x] Test persistence after closing/reopening the browser
+
+---
+
+### PHASE 7 — Testing & Edge Cases
+
+* [ ] Test empty subject
+* [ ] Test empty chapter
+* [ ] Test empty topic
+* [ ] Test subject with no chapters
+* [ ] Test chapter with no topics
+* [ ] Handle zero-topic progress correctly
+* [ ] Test deleting the selected subject
+* [ ] Test deleting the selected chapter
+* [ ] Test deleting topics
+* [ ] Test IDs after deletions
+* [ ] Test adding new items after deletions
+* [ ] Test LocalStorage after all major operations
+* [ ] Check for console errors
+* [ ] Check for regressions in existing functionality
+
+---
+
+### PHASE 8 — UI Refinement
+
+Only after core V1 functionality is stable.
+
+* [ ] Improve delete-button styling
+* [ ] Improve spacing and typography
+* [ ] Improve visual hierarchy
+* [ ] Improve dashboard appearance
+* [ ] Improve sidebar appearance
+* [ ] Basic usability polish
+* [ ] Fix obvious visual issues
+
+**Note:** Advanced responsiveness and major visual redesign are V2 unless they become necessary for V1 usability.
+
+---
+
+### PHASE 9 — V1 Cleanup & Documentation
+
+* [ ] Remove unnecessary/redundant code
+* [ ] Review function organization
+* [ ] Review variable/function naming
+* [ ] Check for accidental duplication
+* [ ] Final console-error check
+* [ ] Update `LEARNING-NOTES.md`
+* [ ] Update `PROJECT_CONTEXT.md`
+* [ ] Update `README.md`
+* [ ] Review Git history / commits
+* [ ] Final V1 testing
+
+---
+
+## V1 COMPLETION CHECKPOINT
+
+V1 is considered complete when:
+
+* [ ] User can create subjects
+* [ ] User can create chapters
+* [ ] User can create topics
+* [ ] User can mark topics complete
+* [ ] Progress is calculated correctly
+* [ ] User can delete subjects/chapters/topics
+* [ ] Data survives page refresh through LocalStorage
+* [ ] Important edge cases are handled
+* [ ] Core UI is usable and reasonably polished
+* [ ] Documentation is up to date
+* [ ] Final V1 checkpoint is completed
+* [ ] Changes are committed and pushed to GitHub
+
+---
+
+## V2 — OUT OF CURRENT V1 SCOPE
+
+These should **not** distract from completing V1:
+
+* Advanced responsive design
+* Major visual redesign
+* Dark mode
+* Charts / advanced analytics
+* Complex animations
+* Cloud sync
+* User accounts
+* Backend/database
+* Mobile app
+* Notifications
+* Calendar integration
+* AI-generated study plans
+* Advanced scheduling
+* Other nonessential features
+
+**V2 begins only after V1 is stable and complete.**

@@ -1,198 +1,5 @@
-let subjects = [
-    {
-    id: 1,
-    name: "Maths",
-    chapters: [
-        {
-            id: 1,
-            name: "Linear Equations",
-            topics: [
-                {
-                    id: 1,
-                    name: "Variables",
-                    completed: true,
-                },
-                {
-                    id: 2,
-                    name: "Solving Equations",
-                    completed: false,
-                },
-                {
-                    id: 3,
-                    name: "Word Problems",
-                    completed: true,
-                }
-            ]
-        },
-        {
-             id: 2,
-            name: "Triangles",
-            topics: [
-                {
-                    id: 1,
-                    name: "Thales Theorem",
-                    completed: true,
-                },
-                {
-                    id: 2,
-                    name: "Similarity",
-                    completed: false,
-                },
-                {
-                    id: 3,
-                    name: "Mixed Problems",
-                    completed: false,
-                }
-        
-    ]
-}
-    ]
-    },
-    {
-        id: 2,
-        name: "Science",
-        chapters: [
-            {
-                id:1,
-                name: "matter in our surroundings",
-                topics: [
-                    {
-                        id:1,
-                        name: "states of matter",
-                        completed: true,
-                    },
-                    {
-                        id:2,
-                        name: "change of state",
-                        completed: true,
-                    },
-                    {
-                        id:3,
-                        name: "evaporation",
-                        completed: false,
-                    },
-                ]
-            },
-            {
-                id:2,
-                name: "atoms and molecules",
-                topics: [
-                    {
-                        id:1,
-                        name: "laws of chemical combination",
-                        completed: true,
-                    },
-                    {
-                        id:2,
-                        name: "atomic mass",
-                        completed: false,
-                    },
-                    {
-                        id:3,
-                        name: "molecules and chemical formulae",
-                        completed: false,
-                    },
-                ]
-            }
-        ]
-    },
-    {
-        id: 3,
-        name: "Sst",
-        chapters: [
-            {
-                id:1,
-                name: "the french revolution",
-                topics: [
-                    {
-                        id:1,
-                        name: "causes of the revolution",
-                        completed: false,
-                    },
-                    {
-                        id:2,
-                        name: "french society",
-                        completed: false,
-                    },
-                    {
-                        id:3,
-                        name: "impact of the revolution",
-                        completed: true,
-                    },
-                ]
-            },
-            {
-                id:2,
-                name: "socialism in europe",
-                topics: [
-                    {
-                        id:1,
-                        name: "rise of socialist ideas",
-                        completed: false,
-                    },
-                    {
-                        id:2,
-                        name: "russian revolution",
-                        completed: false,
-                    },
-                    {
-                        id:3,
-                        name: "impact of socialism",
-                        completed: true,
-                    },
-                ]
-            }
-        ]
-    },
-     {
-        id: 4,
-        name: "English",
-        chapters: [
-            {
-                id:1,
-                name: "First Flight",
-                topics: [
-                    {
-                        id:1,
-                        name: "A Letter to God",
-                        completed: true,
-                    },
-                    {
-                        id:2,
-                        name: "Nelson Mandela: Long Walk to Freedom",
-                        completed: true,
-                    },
-                    {
-                        id:3,
-                        name: "Two Stories About Flying",
-                        completed: true,
-                    },
-                ]
-            },
-            {
-                id:2,
-                name: "Footprint Without Feet",
-                topics: [
-                    {
-                        id:1,
-                        name: "A Triumph of Surgery",
-                        completed: false,
-                    },
-                    {
-                        id:2,
-                        name: "The Theif's Story",
-                        completed: true,
-                    },
-                    {
-                        id:3,
-                        name: "The Midnight Visitor",
-                        completed: false,
-                    },
-                ]
-            }
-        ]
-    },
-]
+let subjects = [];
+loadSubjects();
 function getProgress(subject) {
     let completedTopics = 0
 let totalTopics =0
@@ -234,7 +41,18 @@ let topicDialog = document.getElementById("topicDialog");
 let selectedSubjectIndex;
 let selectedChapterIndex;
 
-// Reusable beginner-friendly helper to generate IDs using: highest existing ID + 1
+function saveSubjects() {
+        localStorage.setItem("subjects", JSON.stringify(subjects));
+    }
+
+function loadSubjects() {
+    let savedSubjects = JSON.parse(localStorage.getItem("subjects"));
+
+    if (savedSubjects) {
+        subjects = savedSubjects;
+    }
+} 
+
 function getNextId(array) {
     let maxId = 0;
     for (let i = 0; i < array.length; i++) {
@@ -256,8 +74,8 @@ addSubButton.addEventListener("click", function () {
         name: name,
         chapters: []
     };
-
-    subjects.push(newsubject);
+     subjects.push(newsubject);
+     saveSubjects();
     dashboardSubjects.innerHTML = "";
     sidebarSubjects.innerHTML = "";
     renderDashboard();
@@ -276,10 +94,10 @@ addChapterButton.addEventListener("click", function () {
         topics: []
     };
     subjects[selectedSubjectIndex].chapters.push(newChapter);
+    saveSubjects();
     chapterNameInput.value = "";
     renderDashboard();
     renderSidebar();
-
     chapterDialog.close();
 });
 
@@ -293,13 +111,12 @@ addTopicDialogButton.addEventListener("click", function () {
         name: name,
         completed: false
     };
-    subjects[selectedSubjectIndex]
-        .chapters[selectedChapterIndex]
-        .topics.push(newTopic);
+    subjects[selectedSubjectIndex].chapters[selectedChapterIndex].topics.push(newTopic);
+    saveSubjects();
+    topicNameInput.value = "";
     renderDashboard();
     renderSidebar();
     topicDialog.close();
-    topicNameInput.value = "";
 });
 
 let container = document.getElementById("dashboardSubjects");
@@ -351,6 +168,7 @@ function renderTopics(subject, chapterIndex, sidebarTopicContainer) {
         sidebarTopicCheckbox.addEventListener("click", function (event) {
             event.stopPropagation();
             subject.chapters[chapterIndex].topics[n].completed = sidebarTopicCheckbox.checked;
+            saveSubjects();
             renderDashboard();
         });
 
@@ -366,6 +184,7 @@ function renderTopics(subject, chapterIndex, sidebarTopicContainer) {
             event.stopPropagation();
             if (confirm("Are you sure you want to delete the topic '" + subject.chapters[chapterIndex].topics[n].name + "'?")) {
                 subject.chapters[chapterIndex].topics.splice(n, 1);
+                saveSubjects();
                 renderDashboard();
                 renderSidebar();
             }
@@ -409,6 +228,7 @@ function renderChapters(subject, sidebarChapterContainer) {
             event.stopPropagation();
             if (confirm("Are you sure you want to delete the chapter '" + subject.chapters[m].name + "'?")) {
                 subject.chapters.splice(m, 1);
+                saveSubjects();
                 if (selectedChapterIndex === m) {
                     selectedChapterIndex = undefined;
                 } else if (selectedChapterIndex > m) {
@@ -476,6 +296,7 @@ function renderSidebar() {
             event.stopPropagation();
             if (confirm("Are you sure you want to delete the subject '" + subjects[l].name + "'?")) {
                 subjects.splice(l, 1);
+                saveSubjects();
                 if (selectedSubjectIndex === l) {
                     selectedSubjectIndex = undefined;
                     selectedChapterIndex = undefined;
@@ -511,4 +332,3 @@ function renderSidebar() {
 
 renderDashboard();
 renderSidebar();
-
